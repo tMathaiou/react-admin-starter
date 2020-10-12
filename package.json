@@ -75,7 +75,7 @@
     "@types/react-select": "^3.0.8",
     "@types/redux-actions": "^2.6.1",
     "@types/socket.io-client": "^1.4.32",
-    "http-proxy-middleware": "^0.20.0",
+    "http-proxy-middleware": "^1.0.6",
     "typescript": "~3.7.2"
   }
 }
