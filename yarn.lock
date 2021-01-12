@@ -1575,10 +1575,10 @@
   resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-2.6.1.tgz#0940e97fa35ad3004316bddb391d8e01d2efa605"
   integrity sha512-zKgK+ATp3sswXs6sOYo1tk8xdXTy4CTaeeYrVQlClCjeOpag5vzPo0ASWiiBJ7vsiQRAdb3VkuFLnDoBimF67g==
 
-"@types/socket.io-client@^1.4.32":
-  version "1.4.32"
-  resolved "https://registry.yarnpkg.com/@types/socket.io-client/-/socket.io-client-1.4.32.tgz#988a65a0386c274b1c22a55377fab6a30789ac14"
-  integrity sha512-Vs55Kq8F+OWvy1RLA31rT+cAyemzgm0EWNeax6BWF8H7QiiOYMJIdcwSDdm5LVgfEkoepsWkS+40+WNb7BUMbg==
+"@types/socket.io-client@^1.4.35":
+  version "1.4.35"
+  resolved "https://registry.yarnpkg.com/@types/socket.io-client/-/socket.io-client-1.4.35.tgz#9f3d38b2f548d64beab4510b4eddc5a526b81724"
+  integrity sha512-MI8YmxFS+jMkIziycT5ickBWK1sZwDwy16mgH/j99Mcom6zRG/NimNGQ3vJV0uX5G6g/hEw0FG3w3b3sT5OUGw==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
