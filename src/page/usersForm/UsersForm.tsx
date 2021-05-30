@@ -5,7 +5,7 @@ import FormActionHeader from './components/FormActionHeader';
 import styles from './usersForm.module.css';
 import UserForm from './components/UserForm';
 import { User } from '../../interfaces/user';
-import { fetchUser, saveUser, updateUser } from '../../state/user/user.actions';
+import { fetchUser, saveUser, updateUser, setUser } from '../../state/user/user.actions';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import { userSelector } from '../../state/user/user.reducers';
@@ -32,6 +32,10 @@ const UsersForm = () => {
     }
 
     getUser();
+
+    return () => {
+      dispatch(setUser(null))
+    }
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -129,30 +133,3 @@ const UsersForm = () => {
 };
 
 export default UsersForm;
-
-// public async componentDidMount(): Promise<void> {
-//   const { t }: any = this.props;
-//   if (this.state.id) {
-//     this.setState({ user: await UserService.get(Number(this.state.id)) });
-//     const socketService = SocketService.getSocket();
-//     this.subscriptions.push(
-//       socketService
-//         .onEvent(`refresh-users-${this.state.id}`)
-//         .subscribe(async () => {
-//           this.setState({
-//             user: await UserService.get(Number(this.state.id))
-//           });
-//           toast.warn(t('messages.already_updated'), {
-//             timeout: false
-//           } as any);
-//         })
-//     );
-//
-//     this.subscriptions.push(
-//       socketService.onEvent(`refresh-users-delete`).subscribe(() => {
-//         toast.warn(t('messages.entity_deleted'), { timeout: false } as any);
-//         this.state.history.push('/users');
-//       })
-//     );
-//   }
-// }
