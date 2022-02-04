@@ -1,13 +1,13 @@
-import React, { FC, useMemo } from 'react';
-import { Field } from 'react-final-form';
-import { useTranslation } from 'react-i18next';
+import React, { FC, useMemo } from 'react'
+import { Field } from 'react-final-form'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
-  onSubmit: () => any;
-};
+  onSubmit: () => any
+}
 
 const UserForm: FC<Props> = ({ onSubmit }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const fields = useMemo(
     () => [
       {
@@ -34,15 +34,15 @@ const UserForm: FC<Props> = ({ onSubmit }) => {
       }
     ],
     [t]
-  );
+  )
   return (
-    <form id="userForm" onSubmit={onSubmit}>
-      <div className="form-group row">
+    <form id='userForm' onSubmit={onSubmit}>
+      <div className='form-group row'>
         {fields.map((field) => (
           <Field name={field.id} key={field.id}>
             {({ input, meta }) => (
-              <div className="col-lg-6 col-xl-6">
-                <label htmlFor={field.id} className="col-form-label">
+              <div className='col-lg-6 col-xl-6'>
+                <label htmlFor={field.id} className='col-form-label'>
                   {field.title}
                 </label>
                 <input
@@ -58,7 +58,7 @@ const UserForm: FC<Props> = ({ onSubmit }) => {
                   }
                 />
                 {meta.error && meta.touched && (
-                  <span className="error-feed">{meta.error}</span>
+                  <span className='error-feed'>{meta.error}</span>
                 )}
               </div>
             )}
@@ -66,7 +66,7 @@ const UserForm: FC<Props> = ({ onSubmit }) => {
         ))}
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default UserForm;
+export default UserForm

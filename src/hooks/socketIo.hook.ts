@@ -1,29 +1,29 @@
-import socketIo, { Socket } from 'socket.io-client';
-import { DefaultConfig } from '../defaultConfig';
+import socketIo, { Socket } from 'socket.io-client'
+import { DefaultConfig } from '../defaultConfig'
 
-const SERVER_URL = DefaultConfig.socketsUrl;
-let socket: Socket;
+const SERVER_URL = DefaultConfig.socketsUrl
+let socket: Socket
 
 const useSocketIO = () => {
   if (socket) {
-    return socket;
+    return socket
   }
 
-  let token: string;
+  let token: string
   try {
-    token = localStorage.getItem('tokenValidation');
+    token = localStorage.getItem('tokenValidation')
   } catch (e) {
-    throw new Error(e);
+    throw new Error(e)
   }
 
   if (!token) {
-    throw new Error('No Token Provided!');
+    throw new Error('No Token Provided!')
   }
   socket = socketIo(SERVER_URL, {
     query: { token },
     transports: ['websocket']
-  });
-  return socket;
-};
+  })
+  return socket
+}
 
-export default useSocketIO;
+export default useSocketIO

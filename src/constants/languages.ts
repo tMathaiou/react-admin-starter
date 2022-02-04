@@ -1,6 +1,6 @@
-import { Language } from '../interfaces/language';
-import englishImg from './../assets/images/260-united-kingdom.svg';
-import greekImg from './../assets/images/170-greece.svg';
+import { Language } from '../interfaces/language'
+import englishImg from './../assets/images/260-united-kingdom.svg'
+import greekImg from './../assets/images/170-greece.svg'
 
 export const languages: Language[] = [
   {
@@ -15,4 +15,4 @@ export const languages: Language[] = [
     id: 1,
     text: 'translations.greek'
   }
-];
+]

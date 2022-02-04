@@ -1,32 +1,33 @@
-import React, { ChangeEvent, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { login } from '../../state/app/app.actions';
-import LogoLogin from './logoLogin.svg';
-import styles from './login.module.css';
-import { useHistory } from 'react-router';
-import { to } from '../../utils/apiUtils';
-import { useAppDispatch } from '../../state/store';
+import React, { ChangeEvent, useCallback, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { login } from '../../state/app/app.actions'
+import LogoLogin from './logoLogin.svg'
+import styles from './login.module.css'
+import { useAppDispatch } from '../../state/store'
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useAppDispatch();
-  const { t } = useTranslation();
-  const history = useHistory();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
-  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setEmail(e.target.value);
+  const onEmailChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
+    []
+  )
 
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setPassword(e.target.value);
+  const onPasswordChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value),
+    []
+  )
 
-  const submit = async (e) => {
-    e.preventDefault();
-    const [err] = await to(dispatch(login({ email, password })));
-    if (!err) {
-      history.push('/');
-    }
-  };
+  const submit = useCallback(
+    (e) => {
+      e.preventDefault()
+      dispatch(login({ email, password }))
+    },
+    [dispatch, email, password]
+  )
 
   return (
     <div className={styles.login}>
@@ -35,18 +36,18 @@ const Login = () => {
           <div className={styles.box}>
             <div className={`${styles.loginContainer} container`}>
               <div className={`${styles.loginLogo}`}>
-                <img alt="logo" src={LogoLogin} width="150px" />
+                <img alt='logo' src={LogoLogin} width='150px' />
               </div>
               <div className={styles.signIn}>
                 <form onSubmit={submit}>
                   <div className={`${styles.loginInputGroup} input-group`}>
                     <input
                       placeholder={t('commons.email')}
-                      autoComplete="off"
+                      autoComplete='off'
                       className={`${styles.loginFormControl} form-control`}
-                      name="email"
+                      name='email'
                       onChange={onEmailChange}
-                      type="text"
+                      type='text'
                       value={email}
                     />
                   </div>
@@ -54,9 +55,9 @@ const Login = () => {
                     <input
                       placeholder={t('commons.password')}
                       className={`${styles.loginFormControl} form-control`}
-                      name="password"
+                      name='password'
                       onChange={onPasswordChange}
-                      type="password"
+                      type='password'
                       value={password}
                     />
                   </div>
@@ -76,7 +77,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

@@ -1,6 +1,6 @@
-import { User } from './user';
+import { User } from './user'
 
 export interface Login {
-  token: string;
-  user: User;
+  token: string
+  user: User
 }

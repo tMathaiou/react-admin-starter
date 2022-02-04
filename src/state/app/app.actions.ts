@@ -1,30 +1,27 @@
-import { to } from '../../utils/apiUtils';
-import { toast } from 'react-toastify';
-import { submitLogin } from '../../services/login.service';
-import { Login } from '../../interfaces/login';
-import i18n from '../../i18n';
-import { appSlice } from './app.reducers';
-import { AppDispatch } from '../store';
+import { toast } from 'react-toastify'
+import { submitLogin } from '../../services/login.service'
+import { Login } from '../../interfaces/login'
+import i18n from '../../i18n'
+import { appSlice } from './app.reducers'
+import { AppDispatch } from '../store'
+import { AxiosError } from 'axios'
 
 export const login =
   ({ email, password }: { email: string; password: string }) =>
   async (dispatch: AppDispatch) => {
-    const [err, login]: [string, Login] = await to(
-      submitLogin(email, password)
-    );
+    const [err, login]: [AxiosError, Login] = await submitLogin(email, password)
 
     if (err) {
-      toast.error(i18n.t('commons.wrong_credentials'));
-      throw new Error(err);
+      return toast.error(i18n.t('commons.wrong_credentials'))
     }
 
-    localStorage.setItem('tokenValidation', login.token);
-    localStorage.setItem('userValidation', JSON.stringify(login.user));
+    localStorage.setItem('tokenValidation', login.token)
+    localStorage.setItem('userValidation', JSON.stringify(login.user))
 
-    dispatch(setToken(login.token));
-    dispatch(setUser(login.user));
-    dispatch(setLoggedIn(true));
-  };
+    dispatch(setToken(login.token))
+    dispatch(setUser(login.user))
+    dispatch(setLoggedIn(true))
+  }
 
 export const {
   setUser,
@@ -34,4 +31,4 @@ export const {
   setLangId,
   setLoggedIn,
   setToken
-} = appSlice.actions;
+} = appSlice.actions

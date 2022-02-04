@@ -1,36 +1,37 @@
-import React, { useState } from 'react';
-import styles from './menuSidebar.module.css';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { routes } from '../../routes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { DefaultConfig } from '../../defaultConfig';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
-import { appSelector } from '../../state/app/app.reducers';
-import useWindowsWidth from '../../hooks/windowWidth.hook';
+import React, { useCallback, useState } from 'react'
+import styles from './menuSidebar.module.css'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import { routes } from '../../routes'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { DefaultConfig } from '../../defaultConfig'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { Link, useLocation } from 'react-router-dom'
+import { appSelector } from '../../state/app/app.reducers'
+import useWindowsWidth from '../../hooks/windowWidth.hook'
 
 const MenuSidebar = () => {
-  const { t } = useTranslation();
-  const [isHovering, setHovering] = useState(false);
-  const { isSidebarOpen } = useSelector(appSelector);
-  const location = useLocation();
-  const isScreenSmall = useWindowsWidth();
+  const { t } = useTranslation()
+  const [isHovering, setHovering] = useState(false)
+  const { isSidebarOpen } = useSelector(appSelector)
+  const location = useLocation()
+  const isScreenSmall = useWindowsWidth()
 
-  const onMouseOut = () => {
-    setHovering(false);
-  };
-  const onMouseOver = () => {
-    setHovering(true);
-  };
+  const onMouseOut = useCallback(() => {
+    setHovering(false)
+  }, [])
 
-  const getHoverClasses = (): string => {
-    let output = `${styles.menuSidebar} slide`;
+  const onMouseOver = useCallback(() => {
+    setHovering(true)
+  }, [])
+
+  const getHoverClasses = useCallback((): string => {
+    let output = `${styles.menuSidebar} slide`
     if (isHovering || isSidebarOpen) {
-      output += ` ${styles.hover}`;
+      output += ` ${styles.hover}`
     }
-    return output;
-  };
+    return output
+  }, [isHovering, isSidebarOpen])
 
   return (
     <div
@@ -42,7 +43,7 @@ const MenuSidebar = () => {
       onMouseLeave={onMouseOut}
       onMouseEnter={onMouseOver}
     >
-      <div className="menu-sidebar-wrapper">
+      <div className='menu-sidebar-wrapper'>
         <PerfectScrollbar className={styles.menuSidebarScroller}>
           <ul className={styles.menuNav}>
             {routes.map((item, index) =>
@@ -84,7 +85,7 @@ const MenuSidebar = () => {
         </PerfectScrollbar>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MenuSidebar;
+export default MenuSidebar

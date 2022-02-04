@@ -1,32 +1,39 @@
-import React, { useEffect } from 'react';
-import styles from './App.module.css';
-import { Route, Switch, useHistory } from 'react-router';
-import { routes } from './routes';
-import { useSelector } from 'react-redux';
-import { appSelector } from './state/app/app.reducers';
-import Loader from './components/loader/Loader';
-import MenuSidebar from './components/menu-sidebar/MenuSidebar';
-import TopBar from './components/top-bar/TopBar';
-import useWindowsWidth from './hooks/windowWidth.hook';
-import Login from './page/login/Login';
+import React, { useEffect } from 'react'
+import styles from './App.module.css'
+import { Route, Routes, useLocation, useNavigate } from 'react-router'
+import { routes } from './routes'
+import { useSelector } from 'react-redux'
+import { appSelector } from './state/app/app.reducers'
+import Loader from './components/loader/Loader'
+import MenuSidebar from './components/menu-sidebar/MenuSidebar'
+import TopBar from './components/top-bar/TopBar'
+import useWindowsWidth from './hooks/windowWidth.hook'
+import Login from './page/login/Login'
 
 function App(): JSX.Element {
-  const { isSidebarOpen, loggedIn } = useSelector(appSelector);
-  const isScreenSmall = useWindowsWidth();
-  const history = useHistory();
+  const { isSidebarOpen, loggedIn } = useSelector(appSelector)
+  const isScreenSmall = useWindowsWidth()
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     if (!loggedIn) {
-      history.push('/login');
+      navigate('/login')
+    } else if (pathname === '/login') {
+      navigate('/')
     }
-  }, [history, loggedIn]);
+  }, [loggedIn, navigate, pathname])
 
   if (!loggedIn) {
-    return <Route exact={true} path={'/login'} component={Login} />;
+    return (
+      <Routes>
+        <Route path={'/login'} element={<Login />} />
+      </Routes>
+    )
   }
 
   return (
-    <div id="app">
+    <div id='app'>
       <Loader />
       <div id={styles.appWrapper}>
         <MenuSidebar />
@@ -44,22 +51,21 @@ function App(): JSX.Element {
             className={styles.viewWrapper}
           >
             <div className={styles.viewContainer}>
-              <Switch>
+              <Routes>
                 {routes.map((route, index) => (
                   <Route
                     key={index}
-                    exact={route.exact}
                     path={route.path}
-                    component={route.component}
+                    element={<route.element />}
                   />
                 ))}
-              </Switch>
+              </Routes>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
